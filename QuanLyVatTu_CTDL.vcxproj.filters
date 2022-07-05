@@ -20,19 +20,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="models\CtHonDon.h">
+    <ClInclude Include="CtHonDon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="models\HoaDon.h">
+    <ClInclude Include="HoaDon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="models\NhanVien.h">
+    <ClInclude Include="NhanVien.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="models\VatTu.h">
+    <ClInclude Include="Validator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils\Validator.h">
+    <ClInclude Include="VatTu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{C6374E1B-3F56-4382-9D1C-487A7A3B4C2B}</ProjectGuid>
+    <ProjectGuid>{D0EB713E-A2CE-4403-B6BB-6952313072C3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -101,11 +101,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="models\CtHonDon.h" />
-    <ClInclude Include="models\HoaDon.h" />
-    <ClInclude Include="models\NhanVien.h" />
-    <ClInclude Include="models\VatTu.h" />
-    <ClInclude Include="utils\Validator.h" />
+    <ClInclude Include="CtHonDon.h" />
+    <ClInclude Include="HoaDon.h" />
+    <ClInclude Include="NhanVien.h" />
+    <ClInclude Include="Validator.h" />
+    <ClInclude Include="VatTu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
