@@ -12,10 +12,11 @@
 int main(int argc, const char * argv[]) {
     VatTu vatu = VatTu();
     string input;
-    do{
-        cout << "Nhap ten vat tu: ";
-        cin >> input;
-    }while(!validateText(MA_VAT_TU, vatu.tenVT, input, MA_VAT_TU_SIZE));
+    inputNumber(vatu.soLuongTon);
+//    do{
+//        cout << "Nhap ten vat tu: ";
+//        cin >> input;
+//    }while(!validateText(MA_VAT_TU, vatu.tenVT, input, MA_VAT_TU_SIZE));
     
     cout << vatu.toString();
 }
