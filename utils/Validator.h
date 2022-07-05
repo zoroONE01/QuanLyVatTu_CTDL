@@ -33,27 +33,27 @@ string inputText(string fieldName, string &content, string input, int size){
     return NULL;
 }
 
-string inputNumber(int &content){
-    char key_press;
-    int ascii_value;
-    while(1) {
-        key_press=getch();
-        ascii_value=key_press;
-        if(ascii_value==ESCAPE) // For ESC
-                break;
-        cout<<"Ban nhap phim-> \" "<<key_press<<" \" Gia tri ASCII =  "<<ascii_value<<"\n";
-        }
-    
-    if (input.empty()) {
-        return "Khong duoc rong\n";
-    }
-    char c[input.length()];
-    strcpy(c, input.c_str());
-    for (int i = 0; i< sizeof(c); i++) {
-        if (!isdigit(c[i])) {
-            return "Chi duoc nhap so nguyen\n";
-        }
-    }
-    return NULL;
-}
+//string inputNumber(int &content){
+//    char key_press;
+//    int ascii_value;
+//    while(1) {
+//        key_press=getch();
+//        ascii_value=key_press;
+//        if(ascii_value==ESCAPE) // For ESC
+//                break;
+//        cout<<"Ban nhap phim-> \" "<<key_press<<" \" Gia tri ASCII =  "<<ascii_value<<"\n";
+//        }
+//    
+//    if (input.empty()) {
+//        return "Khong duoc rong\n";
+//    }
+//    char c[input.length()];
+//    strcpy(c, input.c_str());
+//    for (int i = 0; i< sizeof(c); i++) {F
+//        if (!isdigit(c[i])) {
+//            return "Chi duoc nhap so nguyen\n";
+//        }
+//    }
+//    return NULL;
+//}
 #endif /* Validator_h */
