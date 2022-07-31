@@ -8,132 +8,185 @@
 #ifndef VatTu_h
 #define VatTu_h
 
-#include <stdio.h>
-#include <string>
-#include <iostream>
+#include "BaseHeader.h"
 
-#define MA_VAT_TU_SIZE 10
-#define MA_VAT_TU "Ma Vat Tu"
-#define TEN_VAT_TU "Ten Vat Tu"
-#define DON_VI_TINH "Don Vi Tinh"
-#define SO_LUONG_TON "So Luong Ton"
 
-using namespace std;
+int amount = 0;
 
-class VatTu{
-    
-public:
-    string maVT;
-    string tenVT;
-    string donViTinh;
-    int soLuongTon;
-    
-    VatTu(){}
-    
-    string toString(){
-        return "Ma Vat Tu: " + this->maVT + "\n" +
-                "Ten Vat Tu: " + this->tenVT + "\n" +
-                "Don Vi Tinh: " + this->donViTinh + "\n" +
-                "So Luong Ton: " + to_string(this->soLuongTon) + "\n";
-    }
-};
+typedef struct {
+
+	char maVT[10];
+	char tenVT[20];
+	char donViTinh[10];
+	char soLuongTon[10];
+
+	string toString() {
+		string str = "";
+		str.append(maVT);
+		str.append(tenVT);
+		str.append(donViTinh);
+		str.append(soLuongTon);
+		return str + "\n";
+	}
+
+	bool operator == (const VatTu& vatTu) const {
+		return string(maVT) == string(vatTu.maVT);
+	}
+	bool operator > (const VatTu& vatTu)
+	{
+		return string(maVT) > string(vatTu.maVT);
+	}
+	bool operator < (const VatTu& vatTu)
+	{
+		return string(maVT) < string(vatTu.maVT);
+	}
+} VatTu;
 
 struct VatTuNode {
-    VatTu data;
-    struct VatTuNode *left, *right;
+	VatTu data;
+	NodePtr left, * right;
 };
 
-// Create a node with data
-struct VatTuNode *newNode(VatTu item) {
-    struct VatTuNode *temp = (struct VatTuNode *)malloc(sizeof(struct VatTuNode));
-    temp->data = item;
-    temp->left = temp->right = NULL;
-    return temp;
+typedef NodePtr NodePtr;
+
+
+void initalize(NodePtr& root, int& amount)
+{
+	amount = 0;
+	root = NULL;
 }
+
+// Create a node with data
+NodePtr newNode(VatTu item) {
+	NodePtr temp = (NodePtr)malloc(sizeof(NodePtr));
+	temp->data = item;
+	temp->left = temp->right = NULL;
+	return temp;
+}
+
 
 //Traverse and print data
-void inorder(struct VatTuNode *root) {
-    if (root != NULL) {
-        // Traverse left
-        inorder(root->left);
-        
-        // Traverse root
-        cout << root->data.toString() << " -> ";
-        
-        // Traverse right
-        inorder(root->right);
-    }
+void inorder(NodePtr& root) {
+	if (root != NULL) {
+		// Traverse left
+		inorder(root->left);
+
+		// Traverse root
+		cout << root->data.toString() << " -> ";
+
+		// Traverse right
+		inorder(root->right);
+	}
 }
 
+
 // Insert a node
-struct VatTuNode *insert(struct VatTuNode *node, VatTu data) {
-    // Return a new node if the tree is empty
-    if (node == NULL) return newNode(data);
-    
-    // Traverse to the right place and insert the node
-    if (data.maVT.compare(node->data.maVT) < 0)
-        node->left = insert(node->left, data);
-    else
-        node->right = insert(node->right, data);
-    
-    return node;
+NodePtr insert(NodePtr& node, VatTu data) {
+	// Return a new node if the tree is empty
+	if (node == NULL) return newNode(data);
+
+	// Traverse to the right place and insert the node
+	if (data > node->data)
+		node->left = insert(node->left, data);
+	else
+		node->right = insert(node->right, data);
+
+	return node;
 }
 
 // Find min node
-struct VatTuNode *minValueNode(struct VatTuNode *node) {
-    struct VatTuNode *current = node;
-    
-    // Find the leftmost leaf
-    while (current && current->left != NULL)
-        current = current->left;
-    
-    return current;
+NodePtr minValueNode(NodePtr node) {
+	NodePtr current = node;
+
+	// Find the leftmost leaf
+	while (current && current->left != NULL)
+		current = current->left;
+
+	return current;
 }
 
 // Find max node
-struct VatTuNode *maxValueNode(struct VatTuNode *node) {
-    struct VatTuNode *current = node;
-    
-    // Find the rightmost leaf
-    while (current && current->right != NULL)
-        current = current->right;
-    
-    return current;
+NodePtr maxValueNode(NodePtr node) {
+	NodePtr current = node;
+
+	// Find the rightmost leaf
+	while (current && current->right != NULL)
+		current = current->right;
+
+	return current;
+}
+
+
+NodePtr findNodeByMaVT(NodePtr root, char maVT[11])
+{
+	NodePtr node = root;
+	while (node != NULL && strcmp(node->data.maVT, maVT) != 0)
+	{
+		if (strcmp(node->data.maVT, maVT) < 0)
+			node = node->right;
+		else if (strcmp(node->data.maVT, maVT) > 0)
+			node = node->left;
+	}
+	return node;
 }
 
 // Deleting a node
-struct VatTuNode *deleteNode(struct VatTuNode *root, VatTu data) {
-    // Return if the tree is empty
-    if (root == NULL) return root;
-    
-    // Find the node to be deleted
-    if (data.maVT.compare(root->data.maVT) < 0)
-        root->left = deleteNode(root->left, data);
-    else if (data.maVT.compare(root->data.maVT) > 0)
-        root->right = deleteNode(root->right, data);
-    else {
-        // If the node is with only one child or no child
-        if (root->left == NULL) {
-            struct VatTuNode *temp = root->right;
-            //giai phong bo nho da duoc cap phat bang malloc
-            free(root);
-            return temp;
-        } else if (root->right == NULL) {
-            struct VatTuNode *temp = root->left;
-            free(root);
-            return temp;
-        }
-        
-        // If the node has two children
-        struct VatTuNode *temp = minValueNode(root->right);
-        
-        // Place the inorder successor in position of the node to be deleted
-        root->data = temp->data;
-        
-        // Delete the inorder successor
-        root->right = deleteNode(root->right, temp->data);
-    }
-    return root;
+NodePtr deleteNode(NodePtr& root, VatTu data) {
+	// Return if the tree is empty
+	if (root == NULL) return root;
+
+	// Find the node to be deleted
+	if (data < root)
+		root->left = deleteNode(root->left, data);
+	else if (data > root->data)
+		root->right = deleteNode(root->right, data);
+	else {
+		// If the node is with only one child or no child
+		if (root->left == NULL) {
+			NodePtr temp = root->right;
+			//giai phong bo nho da duoc cap phat bang malloc
+			free(root);
+			amount--;
+			return temp;
+		}
+		else if (root->right == NULL) {
+			NodePtr temp = root->left;
+			free(root);
+			amount--;
+			return temp;
+		}
+
+		// If the node has two children
+		NodePtr temp = minValueNode(root->right);
+
+		// Place the inorder successor in position of the node to be deleted
+		root->data = temp->data;
+
+		// Delete the inorder successor
+		root->right = deleteNode(root->right, temp->data);
+	}
+	return root;
+}
+
+void loadFile(NodePtr& root, int& amount)
+{
+	initalize(root, amount);
+	ifstream vatTuData;
+	vatTuData.open("VatTu.txt", ios::in);
+	vatTuData >> amount;
+	vatTuData.ignore();
+	//logs << CountM << endl;
+	for (int i = 0; i < amount; i++)
+	{
+		VatTu vatTu;
+		vatTuData.getline(vatTu.maVT, sizeof(vatTu.maVT));
+		vatTuData.getline(vatTu.tenVT, sizeof(vatTu.tenVT));
+		vatTuData.getline(vatTu.donViTinh, sizeof(vatTu.donViTinh));
+		vatTuData.getline(vatTu.soLuongTon, sizeof(vatTu.soLuongTon));
+		root = insert(root, vatTu);
+	}
+	//logs << "finish" << endl;
+	vatTuData.close();
 }
 
 #endif /* VatTu_h */

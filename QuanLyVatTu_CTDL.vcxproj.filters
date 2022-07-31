@@ -20,19 +20,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CtHonDon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HoaDon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NhanVien.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Validator.h">
+    <ClInclude Include="VatTu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VatTu.h">
+    <ClInclude Include="BaseHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputValidator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
